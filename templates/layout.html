@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>ElderMinder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #ddd;
+        }
+        .nav {
+          padding-top: 3.0vmin;
+          padding-bottom: 0;
+          margin-bottom: 10px;
+          font-size: 3.5vmax;
+          background-color: white;
+        }
+        .container-fluid, .container{
+            width: 100%;
+        }
+        .nav .active {
+              color: orange;
+              border-bottom: 0.7vmin solid orange;
+        }
+        #new {
+            right: 50px;
+            position: fixed;
+            z-index: 1;
+            bottom: 10px;
+        }
+        .new {
+            padding: 13px;
+            font-size: 25px;
+        }
+        .dropup {
+            position: relative;
+            display: inline-block;
+        }
+        .dropup-content {
+            display: none;
+            position: absolute;
+            background-color: orange;
+            max-width: 100px;
+            bottom: 39px;
+            right: 0px;
+            z-index: 1;
+        }
+        .dropup-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .show {display:inline-block;}
+/* Modals */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 10px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        text-align: center;
+    }
+    .modal-header {
+        padding: 2px 16px;
+        background-color: 	#87CEFA;
+        color: black;
+      width: 80%;
+      margin: auto;
+    }
+    .modal-body {
+        background-color: white;
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+       padding: 2px 16px;
+    }
+    .modal-footer {
+        background-color: 	#87CEFA;
+      width: 80%;
+      margin: auto;
+        display: flex;
+      justify-content: center;
+    }
+    .modal-footer .btn {
+      margin: 0px 50px;
+    }
+/* End of Modals */
+/* Start of Choose Day */
+    #chooseday {
+    }
+    .chooseday {
+      float: left;
+    }
+    .labels {
+      margin-left: 30px;
+      width: 0px;
+      text-align: center;
+      font-size: 20px;
+    }
+    .option {
+       opacity: 0.5;
+       text-align: center;
+    }
+    /* Hide the browser's default checkbox */
+    .chooseday input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+    input[type=checkbox]:checked ~ .option {
+       color: #3366cc;
+    }
+/* End of Choose Day */
+    </style>
+
+  <body>
+
+
+<div class="container-fluid">
+    {% block body %}{% endblock %}
+
+    <!-- New button -->
+    <div class="dropup" id="new">
+        <button onclick="myFunction()" class="dropbtn btn btn-primary new" >NEW</button>
+          <div id="myDropup" class="dropup-content">
+            <div><a href="#" onclick="document.getElementById('newmodal_e').style.display='block'">Event</a></div>
+            <div><a href="#" onclick="document.getElementById('newmodal_r').style.display='block'">Routine</a></div>
+          </div>
+        </div>
+    </div>
+
+    <!--New event Modal -->
+    <div id="newmodal_e" class="modal">
+        <div class="modal-header"><h2>New Event</h2></div>
+
+        <form action="/add_event" method="POST">
+        <div class="modal-body">
+        <p></br>
+            <label for="image-input">Image</label><div class="col-10"><input class="form-control" type="file" name="image" id="image"></div>
+            </br>
+            <label for="title-input">Title:</label><div class="col-10"><input class="form-control" type="text" name="title" value="" id="title-input"></div>
+            </br>
+            <label for="details-input">Details:</label><div class="col-10"><textarea class="form-control" rows="5" name="details" value="" id="details-input"></textarea></div>
+            </br>
+            <label for="date-input">Date:</label><div class="col-10"><input class="form-control" type="date" name="date" value="" id="date-input"></div>
+            </br>
+            <label for="time-input">Time:</label><div class="col-10"><input class="form-control" type="time" name="time" value="12:45" id="time-input"></div>
+            </br>
+        </p>
+        </div><!--New event Modal Body -->
+
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Save">
+        <span onclick="document.getElementById('newmodal_e').style.display='none'"  class="btn btn-default">Cancel</span>
+
+        </div><!--Modal footer -->
+        </form>
+    </div><!--New event Modal-->
+
+    <!--New routine Modal -->
+    <div id="newmodal_r" class="modal">
+        <div class="modal-header"><h2>New Routine</h2></div>
+
+        <form action="/add_routine" method="POST">
+        <div class="modal-body">
+        <p></br>
+            <label for="image-input">Image</label><div class="col-10"><input class="form-control" type="file" name="image" id="image"></div>
+            </br>
+            <label for="title-input">Title:</label><div class="col-10"><input class="form-control" type="text" name="title" value="" id="title-input"></div>
+            </br>
+            <label for="details-input">Details:</label><div class="col-10"><textarea class="form-control" rows="5" name="details" id="details-input"></textarea></div>
+            </br>
+            <label for="time-input">Time:</label><div class="col-10"><input class="form-control" type="time" name="time" value="12:45" id="time-input"></div>
+            </br>
+            <!--Choose Day-->
+            <p>Repeat Every: </p>
+            <div class="container" id="chooseday">
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="mon" value="0"><div class="option">M</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="tue"value="0"><div class="option">T</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="wed"value="0"><div class="option">W</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="thur" value="0"><div class="option">Th</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="fri" value="0"><div class="option">F</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="sat" value="0"><div class="option">Sa</div></label></div>
+            <div class="chooseday"><label class="labels"><input type="checkbox" name="sun" value="0"><div class="option">Su</div></label></div>
+            </div><!--Choose Day-->
+        </p>
+        </div><!--New routine Modal Body -->
+
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Save">
+        <span onclick="document.getElementById('newmodal_r').style.display='none'"  class="btn btn-default">Cancel</span>
+
+        </div><!--Modal footer -->
+        </form>
+
+    </div><!--New routine Modal-->
+<script>
+// Dropdown
+function myFunction() {
+    document.getElementById("myDropup").classList.toggle("show");
+}
+// click outside dropup
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropups = document.getElementsByClassName("dropup-content");
+    var i;
+    for (i = 0; i < dropups.length; i++) {
+      var openDropup = dropups[i];
+      if (openDropup.classList.contains('show')) {
+        openDropup.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+  </body>
+</html>
