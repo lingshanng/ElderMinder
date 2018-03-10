@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+p {
+    font-size: 10vmax;
+}
+</style>
+<!--Navigation-->
+<div class="row text-center nav">
+  <div class="col-xs-4 tabs active"><span class="glyphicon glyphicon-home"></br>Home</span></div>
+  <a href="events"><div  class="col-xs-4 tabs"><span class="glyphicon glyphicon-th-list"></br>Events</span></div></a>
+  <a href="routines"><div  class="col-xs-4 tabs"><span class="glyphicon glyphicon-time"></br>Routines</span></div></a>
+</div>
+
+<!--main body-->
+<div class="container">
+<h1>Welcome!</h1>
+                    <p>
+                    <marquee behavior="scroll" bgcolor="white" loop="-1" width="100%">
+                        <font color="darkslateblue">
+                            Today's date is:
+                            <strong>
+                                 <script> document.write(new Date().toLocaleDateString()); </script>
+                            </strong>
+                        </font>
+                    </marquee>
+                    </p>
+                    <h2>Next Alarm</h2>
+
+
+</div><!--main body-->
+<script>
+</script>
+{% endblock %}
