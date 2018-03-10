@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+    .entry {
+        background-color: white;
+        height: 33vh;
+        margin: 1% 1%;
+        padding: 0;
+    }
+    .dtitle {
+        font-size: 4vmax;
+    }
+    .dtime {
+        font-size: 3vmax;
+    }
+    .ddate {
+        font-size: 3vmax;
+    }
+    .entry .dpic {
+        background-color: black;
+        color: white;
+        width: 20vw;
+        height: 33vh;
+        margin: 0;
+    }
+</style>
+<body>
+
+<!-- Navigation -->
+<div class="row text-center nav">
+  <a href="main_page"><div class="col-xs-4 tabs "><span class="glyphicon glyphicon-home"></br>Home</span></div></a>
+  <a href="events"><div  class="col-xs-4 tabs"><span class="glyphicon glyphicon-th-list"></br>Events</span></div></a>
+  <div  class="col-xs-4 tabs active"><span class="glyphicon glyphicon-time"></br>Routines</span></div>
+</div>
+
+
+<!-- Main Body -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ">
+            {% for routine in routines %}
+            <!-- display routines-->
+            <form action="/viewdetails_r" method="POST" id="getidform">
+            <input type="hidden" value="{{routine[0]}}" name="r_id" />
+
+            <div class="entry container" onclick="document.getElementById('getidform').submit()">
+                <div class="dpic col-xs-1"></div>
+                <div class="dtitle col-xs-5">{{ routine[1] }}</div>
+                <div class="dtime col-xs-5">{{ routine[3]}}</div>
+            </div>
+            </form>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+{% endblock %}
