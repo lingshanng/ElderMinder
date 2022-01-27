@@ -1,4 +1,4 @@
-# Elderminder
+# ElderMinder
 
 Problem: Forgetfulness is common for the elderly and it disrupts their daily life. It could bring serious consequences when for instance they forget take their medicine. Many are inept with technology so they are unable to use many of the complicated apps already available. 
 
